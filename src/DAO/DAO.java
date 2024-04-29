@@ -5,6 +5,7 @@
 package DAO;
 
 import Model.Booking;
+import Model.Flight;
 import Model.Revenue;
 import Model.Schedule;
 import java.util.*;
@@ -158,5 +159,28 @@ public class DAO {
             throw ex;
         }
         return allSchedule;
+    }
+    
+    public List<Flight> getAllFlight() throws SQLException {
+        List<Flight> flights = new ArrayList<>();
+        String query = "select * from flight";
+        try {
+            PreparedStatement statement = _connect.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Flight flight = new Flight();
+                flight.setId(result.getInt("id"));
+                flight.setName(result.getString("name"));
+                flight.setDeparture(result.getString("departure"));
+                flight.setArrival(result.getString("arrival"));
+                flight.setDurationMinutes(result.getInt("durationMinutes"));
+                flight.setScheduleId(result.getInt("scheduleId"));
+                flights.add(flight);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERR");
+            throw ex;
+        }
+        return flights;
     }
 }

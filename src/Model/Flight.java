@@ -14,6 +14,7 @@ public class Flight {
     private String departure;
     private String arrival;
     private int durationMinutes;
+    private int scheduleId;
 
     public Flight(int id, String name, String departure, String arrival, int durationMinutes) {
         this.id = id;
@@ -48,6 +49,14 @@ public class Flight {
 
     public void setDeparture(String departure) {
         this.departure = departure;
+    }
+    
+    public int getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
     public String getArrival() {
