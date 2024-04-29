@@ -15,19 +15,18 @@ public class Schedule {
     private String gate;
     private Timestamp departureTime;
     private String status;
+    private String departure;
 
-    public Schedule(int id, String gate, Timestamp departureTime, String status, String aircraft, int flightId) {
+    public Schedule(int id, String gate, Timestamp departureTime, String status, int flightId) {
         this.id = id;
         this.gate = gate;
         this.departureTime = departureTime;
         this.status = status;
-        this.aircraft = aircraft;
         this.flightId = flightId;
     }
 
     public Schedule() {
     }
-    private String aircraft;
     private int flightId;
 
     public int getId() {
@@ -53,6 +52,14 @@ public class Schedule {
     public void setDepartureTime(Timestamp departureTime) {
         this.departureTime = departureTime;
     }
+    
+    public String getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(String departure) {
+        this.departure = departure;
+    }
 
     public String getStatus() {
         return status;
@@ -60,14 +67,6 @@ public class Schedule {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getAircraft() {
-        return aircraft;
-    }
-
-    public void setAircraft(String aircraft) {
-        this.aircraft = aircraft;
     }
 
     public int getFlightId() {

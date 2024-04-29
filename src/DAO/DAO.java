@@ -4,7 +4,9 @@
  */
 package DAO;
 
+import Model.Booking;
 import Model.Revenue;
+import Model.Schedule;
 import java.util.*;
 import java.sql.*;
 
@@ -93,7 +95,7 @@ public class DAO {
         return revenues;
     }
     
-     public List<Revenue> revenueByFlightName(String flightName) throws SQLException {
+    public List<Revenue> revenueByFlightName(String flightName) throws SQLException {
         List<Revenue> revenues = new ArrayList<>();
         String query = "SELECT YEAR(s.departureTime) AS Year, CASE WHEN MONTH(s.departureTime) BETWEEN 1 AND 3 THEN 'Q1' WHEN MONTH(s.departureTime) BETWEEN 4 AND 6 THEN 'Q2' WHEN MONTH(s.departureTime) BETWEEN 7 AND 9 THEN 'Q3' ELSE 'Q4' END AS Quarter, MONTH(s.departureTime) AS Month, SUM(b.receipt) AS Receipt FROM Flight f JOIN Schedule s ON f.scheduleId = s.id JOIN Booking b ON b.scheduleId = s.id WHERE f.name = ?  GROUP BY YEAR(s.departureTime), MONTH(s.departureTime), CASE WHEN MONTH(s.departureTime) BETWEEN 1 AND 3 THEN 'Q1' WHEN MONTH(s.departureTime) BETWEEN 4 AND 6 THEN 'Q2' WHEN MONTH(s.departureTime) BETWEEN 7 AND 9 THEN 'Q3' ELSE 'Q4' END;";
         try {
@@ -113,5 +115,48 @@ public class DAO {
             throw ex;
         }
         return revenues;
+    }
+    
+    public List<Booking> getAllBooking() throws SQLException {
+        List<Booking> allBooking = new ArrayList<>();
+        String query = "select * from booking";
+        try {
+            PreparedStatement statement = _connect.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Booking booking = new Booking();
+                booking.setId(result.getInt("id"));
+                booking.setScheduleId(result.getInt("scheduleId"));
+                booking.setCustomerId(result.getInt("customerId"));
+                booking.setReceipt(result.getInt("Receipt"));
+                allBooking.add(booking);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERR");
+            throw ex;
+        }
+        return allBooking;
+    }
+    
+    public List<Schedule> getAllSchedule() throws SQLException {
+        List<Schedule> allSchedule = new ArrayList<>();
+        String query = "select * from schedule";
+        try {
+            PreparedStatement statement = _connect.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Schedule schedule = new Schedule();
+                schedule.setId(result.getInt("id"));
+                schedule.setGate(result.getString("gate"));
+                schedule.setDepartureTime(result.getTimestamp("departureTime"));
+                schedule.setDeparture(result.getString("departure"));
+                schedule.setStatus(result.getString("status"));
+                allSchedule.add(schedule);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERR");
+            throw ex;
+        }
+        return allSchedule;
     }
 }

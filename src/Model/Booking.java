@@ -10,16 +10,12 @@ package Model;
  */
 public class Booking {
     private int id;
-    private int flightId;
+    private int scheduleId;
     private int customerId;
     private int receipt;
 
     // Constructor
-    public Booking(int id, int flightId, int customerId, int receipt) {
-        this.id = id;
-        this.flightId = flightId;
-        this.customerId = customerId;
-        this.receipt = receipt;
+    public Booking() {
     }
 
     // Getters and setters
@@ -31,12 +27,12 @@ public class Booking {
         this.id = id;
     }
 
-    public int getFlightId() {
-        return flightId;
+    public int getScheduleId() {
+        return scheduleId;
     }
 
-    public void setFlightId(int flightId) {
-        this.flightId = flightId;
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
     public int getCustomerId() {
@@ -55,20 +51,7 @@ public class Booking {
         this.receipt = receipt;
     }
 
-    // toString method to print booking details
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", flightId=" + flightId +
-                ", customerId=" + customerId +
-                ", receipt=" + receipt +
-                '}';
-    }
-
     // Example of how to use the Booking class
     public static void main(String[] args) {
-        Booking booking1 = new Booking(1, 101, 1, 12345);
-        System.out.println(booking1);
     }
 }
