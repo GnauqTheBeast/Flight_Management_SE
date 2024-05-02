@@ -279,10 +279,17 @@ public class Revenue extends javax.swing.JFrame {
             // Perform some action with the search text (e.g., print it)
             System.out.println("Search Text: " + searchText);
             try {
-                    List<Model.Revenue> revenues = dao.revenueByFlightName(searchText);
+                   List<Model.Revenue> revenues = dao.revenueByFlightName(searchText);
+                if (revenues.isEmpty()) {
+                    // Flight doesn't exist, show alert
+                    JOptionPane.showMessageDialog(frame, "Flight not found!", "Alert", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Flight exists, display revenues
                     displayRevenues(revenues);
-            }
-            catch(Exception e){
+                }
+            } catch(Exception e) {
+                // Handle database query exception
+                JOptionPane.showMessageDialog(frame, "An error occurred while searching for the flight.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
