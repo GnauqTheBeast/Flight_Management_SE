@@ -10,6 +10,8 @@ import Model.Revenue;
 import Model.Schedule;
 import java.util.*;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +23,6 @@ public class DAO {
     private Connection _connect;
 
     public DAO() {
-
         _connect = initializeDBConnection();
     }
 
@@ -34,6 +35,19 @@ public class DAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
+        }
+    }
+    
+    public boolean checkLogin(String username, String password) {
+        try {
+            // Execute query to check if username and password match
+            String query = "SELECT * FROM Users WHERE account = '" + username + "' AND password = '" + password + "'";
+            PreparedStatement statement = _connect.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            // If resultSet has at least one row, then the login is successful
+            return result.next();
+        } catch (SQLException ex) {
+            return false;
         }
     }
     

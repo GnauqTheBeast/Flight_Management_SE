@@ -5,8 +5,7 @@
 package cnpm;
 
 import DAO.DAO;
-import View.Revenue;
-import View.Dashboard;
+import View.LoginFrame;
 /**
  *
  * @author Quang Nguyen
@@ -18,8 +17,8 @@ public class CNPM {
      */
     public static void main(String[] args) {
         DAO deptrai = new DAO();
-        Dashboard dashboard = new Dashboard();
-        dashboard.setVisible(true);
+        LoginFrame login = new LoginFrame();
+        login.setVisible(true);
     }
     
 }
